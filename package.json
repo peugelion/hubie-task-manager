@@ -1,0 +1,23 @@
+{
+  "name": "taskmanager",
+  "version": "1.0.0",
+  "description": "Hubie based task manager for web app customer support.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@10.11.10.123:taskmgr.git"
+  },
+  "keywords": [
+    "task",
+    "hubie",
+    "support"
+  ],
+  "author": "Jovica Jovanovic",
+  "license": "ISC",
+  "dependencies": {
+    "semantic-ui": "^2.2.13"
+  }
+}
