@@ -1,9 +1,18 @@
 var express 	 		 = require("express"),
 		router  	 	 	 = express.Router(),
+		https 				 = require('https'),
+		fs 						 = require('fs'),
 		app				 		 = express(),
 		bodyParser 		 = require('body-parser'),
 		// flash	 				 = require('connect-flash'),
 		methodOverride = require('method-override');
+
+// options object for https server
+// var sslOptions = {
+//   key: fs.readFileSync('key.pem'),
+//   cert: fs.readFileSync('cert.pem'),
+//   passphrase: 'hubie'
+// };
 
 // body-parser provides req.body object
 app.use(bodyParser.urlencoded({extended: true}));
@@ -46,3 +55,7 @@ app.use(router);
 app.listen(3000, function() {
 	console.log('TaskManager app started!');
 });
+
+// https.createServer(sslOptions, app).listen(8443, function() {
+// 	console.log('TaskManager app started!');
+// });

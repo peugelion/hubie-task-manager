@@ -18,5 +18,27 @@
   "permission": false,
   "autoInstall": false,
   "rtl": false,
-  "version": "2.2.13"
+  "version": "2.2.13",
+  "components": [
+    "reset",
+    "site",
+    "container",
+    "grid",
+    "header",
+    "image",
+    "menu",
+    "divider",
+    "segment",
+    "form",
+    "input",
+    "button",
+    "list",
+    "message",
+    "icon",
+    "form",
+    "transition",
+    "button",
+    "checkbox",
+    "label"
+  ]
 }

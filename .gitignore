@@ -1,5 +1,7 @@
 .directory
 .tern-port
 .tern-project
+*.pem
+backup/
 semantic/
 node_modules/
