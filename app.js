@@ -5,7 +5,8 @@ var express 	 		 = require("express"),
 		app				 		 = express(),
 		bodyParser 		 = require('body-parser'),
 		// flash	 				 = require('connect-flash'),
-		methodOverride = require('method-override');
+		methodOverride = require('method-override'),
+		hubieApi 			 = require('./models/hubie-interface')();
 
 // options object for https server
 // var sslOptions = {
@@ -16,12 +17,17 @@ var express 	 		 = require("express"),
 
 // body-parser provides req.body object
 app.use(bodyParser.urlencoded({extended: true}));
+//app.use(bodyParser.json());
+
 // with this I'm serving the public directory
 app.use(express.static(__dirname + "/public"));
+
 // methodOverride provides the override for PUT and DELETE HTTP methods
 app.use(methodOverride("_method"));
+
 // for success/error messages between two requests
 // app.use(flash());
+
 // templating engine ejs - embedded javascript
 app.set("view engine", "ejs");
 
@@ -40,8 +46,14 @@ router.get("/login", function(req, res) {
 // handle login
 // router.post("/login", middleware, callback);
 router.post('/login', function(req, res) {
-	res.render('landing', {user: {username: req.body.username, password: req.body.password}});
+	hubieApi.login(req.body.username, req.body.password);
+	res.redirect('taskOverview');
 });
+
+// show landing page
+router.get('/taskOverview', function(req, res) {
+	res.render('landing', {user: {username: 'jovica', password: 'jovica'}});
+})
 
 // logout
 router.get("/logout", function(req, res) {

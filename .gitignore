@@ -5,3 +5,5 @@
 backup/
 semantic/
 node_modules/
+/nbproject/private/
+nbproject/
