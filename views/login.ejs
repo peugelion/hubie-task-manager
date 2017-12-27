@@ -30,40 +30,25 @@
 	  <script>
 		  $(document)
 		    .ready(function() {
+		    	$('.message .close').on('click', function() { $(this).closest('.message').transition('fade'); });
 		      $('.ui.form')
 		        .form({
 		          fields: {
-		            // email: {
-		            //   identifier  : 'username',
-		            //   rules: [
-		            //     {
-		            //       type   : 'empty',
-		            //       prompt : 'Please enter your e-mail'
-		            //     },
-		            //     {
-		            //       type   : 'email',
-		            //       prompt : 'Please enter a valid e-mail'
-		            //     }
-		            //   ]
-		            // },
+		            username: {
+		              identifier  : 'username',
+		              rules: [ { type   : 'empty',
+		              				   prompt : 'Please enter your e-mail'} ]
+		            },
 		            password: {
 		              identifier  : 'password',
-		              rules: [
-		                {
-		                  type   : 'empty',
-		                  prompt : 'Please enter your password'
-		                },
-		                {
-		                  type   : 'length[4]',
-		                  prompt : 'Your password must be at least 6 characters'
-		                }
-		              ]
+		              rules: [ { type   : 'empty',
+		              					 prompt : 'Please enter your password'},
+		                			 { type   : 'length[4]',
+		                			   prompt : 'Your password must be at least 4 characters'} ]
 		            }
 		          }
-		        })
-		      ;
-		    })
-		  ;
+		        });
+		    });
 	  </script>
 	</head>
 	<body>
@@ -75,6 +60,18 @@
 		        Log-in to your account
 		      </div>
 		    </h2>
+		    <% if(error && error.length > 0) { %>
+					<div class="ui black attached message">
+					  <i class="close icon"></i>
+					  <%= error %>
+					</div>
+				<% } %>
+				<% if(success && success.length > 0) { %>
+					<div class="ui success attached message">
+					  <i class="close icon"></i>
+					  <%= success %>
+					</div>
+				<% } %>
 		    <form method="POST" class="ui large form">
 		      <div class="ui stacked segment">
 		        <div class="field">

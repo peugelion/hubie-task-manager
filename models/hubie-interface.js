@@ -3,9 +3,9 @@ var sql = require('mssql');
 const config = {
 	user: 'sa',
   password: 'password',
-  server: '10.11.2.138', // You can use 'localhost\\instance' to connect to named instance
+  server: '10.11.2.138',
   database: 'hubie_web',
-  connectionTimeout: 10000,
+  connectionTimeout: 5000,
   requestTimeout: 10000,
   pool: {
   	max: 15,
@@ -14,34 +14,33 @@ const config = {
 }
 
 module.exports = function() {
-	var pool = new sql.ConnectionPool(config, err => {
-		if (err) {
-			console.log(err);
-		}
-	});
+	let connError = {};
+	let pool = null;
 	return {
-		login: function(username, password) {
-			pool.request();
-
-			pool.request()
-		  .input('username', sql.NVarChar, username)
-		  .input('password', sql.NVarChar, password)
-		  .execute('task_LogIn', (err, result) => {
-		  	if(err) {
-		  		console.log(err);		  	
-		  	} else {
-		  		// if 'remember me'
-		  		
-		  		console.log('JA');
-		  		return result;
-        }
-	    });
+		connect: function() {
+			pool = new sql.ConnectionPool(config, err => {
+				if(err) {
+					connError.hasError = true;
+					connError.error = err.originalError;
+				}
+			});
+			return this;
+		},
+		login: function(user, pass) {
+			return pool.request()
+								 .input('username', sql.NVarChar, user)
+								 .input('password', sql.NVarChar, pass)
+						.execute('task_LogIn');
 		},
 		logout: function() {
 			return "logout f()";
 		},
-		loadTasks: function() {
-			return "loadTasks f()";
+		loadTasks: function(companyCode, fk_appUser, lang_id) {
+			return pool.request()
+								 .input('@SifraPreduzeca', sql.Int, 1)
+								 .input('@Fk_korisnikApl', sql.Int, 292)
+								 .input('@Jezik_id', sql.Int, 4)
+						.execute('task_GetOpenTasks');
 		}
 	}	
-};
+}();
