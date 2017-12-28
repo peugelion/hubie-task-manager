@@ -37,9 +37,9 @@ module.exports = function() {
 		},
 		loadTasks: function(companyCode, fk_appUser, lang_id) {
 			return pool.request()
-								 .input('@SifraPreduzeca', sql.Int, 1)
-								 .input('@Fk_korisnikApl', sql.Int, 292)
-								 .input('@Jezik_id', sql.Int, 4)
+								 .input('SifraPreduzeca', sql.Int, companyCode)
+								 .input('Fk_korisnikApl', sql.Int, fk_appUser)
+								 .input('Jezik_id', sql.Int, lang_id)
 						.execute('task_GetOpenTasks');
 		}
 	}	
