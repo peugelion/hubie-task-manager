@@ -6,7 +6,10 @@ var express 	 		 = require("express"),
 		methodOverride = require('method-override'),
 		session				 = require('express-session'),
 		cookieParser	 = require('cookie-parser'),
-		hubieApi 			 = require('./models/hubie-interface').connect();
+		hubieApi 			 = require('./models/hubie-interface').connect(),
+		moment 				 = require('moment');
+
+moment.locale('sr');
 
 // body-parser provides req.body object
 app.use(bodyParser.urlencoded({extended: true}));
@@ -105,11 +108,40 @@ router.get('/taskOverview', isLoggedIn, function(req, res) {
 	let session = req.session;
 	hubieApi.loadTasks(session.companyCode, session.fk_appUser, session.lang_id)
 		.then(result => {
-			res.render('taskOverview', {loadedTasks: result.recordset});
+			res.render('taskOverview', {moment: moment, loadedTasks: result.recordset});
 		})
 		.catch(err => {
 			console.log(err);
 		});
+});
+
+// show form to create new task
+router.get('/tasks/new', isLoggedIn, function(req, res) {
+	res.render('newTask');
+});
+
+// create task
+router.post('/tasks', isLoggedIn, function(req, res) {
+});
+
+// show specific task
+router.get('/tasks/:id', function(req, res) {
+});
+
+// load the form to update task
+router.get("/tasks/:id/edit", isLoggedIn, function(req, res) {
+	let session = req.session;
+	hubieApi.getTask(session.companyCode, session.lang_id, req.params.id)
+		.then(result => {
+			res.render('editTask', {taskRecord: result.recordset[0]});
+		})
+		.catch(err => {
+			console.log(err);
+		});
+});
+
+// update the task
+router.put("/tasks/:id", isLoggedIn, function(req, res) {
 });
 
 // logout

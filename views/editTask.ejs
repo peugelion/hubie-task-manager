@@ -1,0 +1,122 @@
+<%- include('partials/header') %>
+	<div class="ui container">
+		<div class="ui grid">
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Plan od:</h3>
+			  <div class="ui calendar" id="PlanOd">
+			    <div class="ui input left icon">
+			      <i class="calendar icon"></i>
+			      <input type="text" placeholder="Date" value="<%= taskRecord.PlanOd %>" disabled>
+		    	</div>
+		  	</div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Plan od vreme:</h3>
+			  <div class="ui calendar" id="PlanOdVreme">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="<%= taskRecord.PlanOdVreme %>" disabled>
+			    </div>
+			  </div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Plan do:</h3>
+			  <div class="ui calendar" id="PlanDo">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="Time" value="<%= taskRecord.PlanDo %>" disabled>
+			    </div>
+			  </div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Plan do vreme:</h3>
+			  <div class="ui calendar" id="PlanDoVreme">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="Time" value="<%= taskRecord.PlanDoVreme %>" disabled>
+			    </div>
+			  </div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Plan vreme</h3>
+			  <div class="ui calendar" id="PlanVreme">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="Time" value="<%= taskRecord.PlanVreme %>" disabled>
+			    </div>
+			  </div>
+	    </div>
+	  </div>
+
+	  <div class="ui grid">
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Realizovan od:</h3>
+			  <div class="ui calendar" id="RealizovanOd">
+			    <div class="ui input left icon">
+			      <i class="calendar icon"></i>
+			      <input type="text" placeholder="Date" value="<%= taskRecord.RealizovanOd %>">
+		    	</div>
+		  	</div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Realizovan od vreme:</h3>
+			  <div class="ui calendar" id="RealizovanOdVreme">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="<%= taskRecord.RealizovanOdVreme %>">
+			    </div>
+			  </div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Realizovan do:</h3>
+			  <div class="ui calendar" id="RealizovanDo">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="Time" value="<%= taskRecord.RealizovanDo %>">
+			    </div>
+			  </div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Realizovan do vreme:</h3>
+			  <div class="ui calendar" id="RealizovanDoVreme">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="Time" value="<%= taskRecord.RealizovanDoVreme %>">
+			    </div>
+			  </div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Realizacija dani</h3>
+			  <div class="ui calendar" id="RealizacijaDani">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="Time" value="<%= taskRecord.RealizacijaDani %>">
+			    </div>
+			  </div>
+	    </div>
+	    <div class="eight wide mobile six wide tablet four wide computer column">
+	    	<h3>Realizacija vreme</h3>
+			  <div class="ui calendar" id="RealizacijaVreme">
+			    <div class="ui input left icon">
+			      <i class="time icon"></i>
+			      <input type="text" placeholder="Time" value="<%= taskRecord.RealizacijaVreme %>">
+			    </div>
+			  </div>
+	    </div>
+	    <!-- <div class="four wide two wide large screen one wide widescreen column"></div> -->
+	  </div>
+	</div>
+
+  <script type="text/javascript">
+  	$(document).ready(() => {
+  		$('#PlanOd, #PlanDo').calendar({
+			  type: 'date',
+			  today: true
+			});
+			$('#PlanOdVreme, #PlanDoVreme').calendar({
+			  type: 'time',
+			  today: true
+			});
+  	});
+  </script>
+<%- include('partials/footer') %>

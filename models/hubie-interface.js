@@ -41,6 +41,13 @@ module.exports = function() {
 								 .input('Fk_korisnikApl', sql.Int, fk_appUser)
 								 .input('Jezik_id', sql.Int, lang_id)
 						.execute('task_GetOpenTasks');
+		},
+		getTask: function(companyCode, lang_id, task_id) {
+			return pool.request()
+								 .input('SifraPreduzeca', sql.Int, companyCode)
+								 .input('Jezik_id', sql.Int, lang_id)
+								 .input('Fk_Task', sql.Int, task_id)
+						.execute('task_GetTask');
 		}
 	}	
 }();

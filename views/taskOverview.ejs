@@ -1,7 +1,55 @@
 <%- include('partials/header') %>
-	<div class="ui text container">
-		<% for (task of loadedTasks) { %>
-			<p><%= task.Subject %></p>
+
+<div class="ui main container">
+    <div class="ui page">
+
+        <% for (task of loadedTasks) { %>
+        <div class="ui segment ep_task" id="<%= task.Pk_Id %>">
+			<div class="ui ribbon label red"><%= task.Fk_Partner %></div>
+			<span><%= task.naziv %></span>
+			<p class="ep_tasksubject"><%= task.Subject %></p>
+			<div class="ui bottom right attached image label">
+				<%= moment(task.Datum).format('ddd D. MMMM'); %>
+				<% if(task.PlanOd) { %><span class="detail">Od: <%= moment(task.PlanOd).format( 'DD.MM.' ); %></span><% } %>
+				<% if(task.PlanDo) { %><span class="detail">Do: <%= moment(task.PlanDo).format( 'DD.MM.' ); %></span><% } %>
+			</div>
+        </div>
 		<% } %>
-	</div>
+
+    </div>
+</div>
+
+<script>
+
+	var tasks = <%- JSON.stringify(loadedTasks) %>;
+
+	/* jQuery */
+	// $(document).ready(function(){
+	// 		$('.ui.segment.ep_task').click(function(){
+	// 		window.location = '/tasks/' +this.id+ '/edit';
+	// 	});
+	// });
+
+	/* JS */
+	function setup() {
+	    var ep_taskEls = document.getElementsByClassName("ep_task");
+
+	    /* ES6 */
+     //    Array.from(ep_taskEls).forEach(function(el) {
+     //  		el.addEventListener('click', function() {
+     //  			window.location = '/tasks/' +this.id+ '/edit';
+     //  		});
+	    // });
+
+	    for (var i = 0; i < ep_taskEls.length; i++) {
+		    ep_taskEls[i].addEventListener('click', function() {
+      			window.location = '/tasks/' +this.id+ '/edit';
+      		}, false);
+		}
+	}
+
+	window.onload = setup;
+
+</script>
+
 <%- include('partials/footer') %>
