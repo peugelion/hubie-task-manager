@@ -1,122 +1,283 @@
 <%- include('partials/header') %>
 	<div class="ui container">
-		<div class="ui grid">
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Plan od:</h3>
-			  <div class="ui calendar" id="PlanOd">
-			    <div class="ui input left icon">
-			      <i class="calendar icon"></i>
-			      <input type="text" placeholder="Date" value="<%= taskRecord.PlanOd %>" disabled>
-		    	</div>
-		  	</div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Plan od vreme:</h3>
-			  <div class="ui calendar" id="PlanOdVreme">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="<%= taskRecord.PlanOdVreme %>" disabled>
-			    </div>
+		<form class="ui form" method="POST" action="/tasks/<%= taskRecord.Pk_Id %>?_method=PUT" id="theForm">
+			<div class="ui grid">
+			  <div class="three wide computer three wide tablet sixteen wide mobile column">
+			    <div class="ui vertical fluid menu">
+					  <a class="item notclicable">
+					    <span class="_info red">Broj taska: </span><%= taskRecord.Broj %>
+					  </a>
+					  <a class="item notclicable">
+					    <span class="_info red">Datum: </span><%= taskRecord.Datum %>
+					  </a>
+					  <a class="item notclicable">
+					    <span class="_info red">Radnik: </span><%= taskRecord.RadnikIme %>
+					  </a>
+					  <a class="item notclicable">
+					    <span class="_info red">Sifra radnika: </span><%= taskRecord.RadnikSifra %>
+					  </a>
+					</div>
 			  </div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Plan do:</h3>
-			  <div class="ui calendar" id="PlanDo">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="Time" value="<%= taskRecord.PlanDo %>" disabled>
-			    </div>
+			  <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+			  	<h3 class="ui dividing header">
+			  		<div class="ui horizontal red label">Naziv partnera:</div> <%= taskRecord.Naziv %>
+			  		<div class="ui horizontal red label">Sifra partnera:</div> <%= taskRecord.Sifra %>
+			  	</h3>
+			  	<br/>
+		      <div class="ui grid">
+		      	<!-- block of unchangeable fields -->
+		      	<div class="sixteen wide stretched column">
+	      			<div class="two fields">
+		      			<div class="field">
+							    <label>Opis taska</label>
+							    <textarea rows="8" disabled="disabled"><%= taskRecord.Subject %></textarea>
+							  </div>
+							  <div class="field">
+							    <div class="ui grid">
+							    	<div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Plan od:</label>
+											  <div class="ui calendar" id="PlanOd">
+											    <div class="ui input left icon">
+											      <i class="calendar icon"></i>
+											      <input type="text" placeholder="Datum" value="<%= taskRecord.PlanOd %>" disabled>
+										    	</div>
+										  	</div>
+										  </div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Plan od vreme:</label>
+											  <div class="ui calendar" id="PlanOdVreme">
+											    <div class="ui input left icon">
+											      <i class="time icon"></i>
+											      <input type="text" placeholder="Vreme" value="<%= taskRecord.PlanOdVreme %>" disabled>
+											    </div>
+											  </div>
+											</div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Plan do:</label>
+											  <div class="ui calendar" id="PlanDo">
+											    <div class="ui input left icon">
+											      <i class="calendar icon"></i>
+											      <input type="text" placeholder="Datum" value="<%= taskRecord.PlanDo %>" disabled>
+											    </div>
+											  </div>
+											</div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Plan do vreme:</label>
+											  <div class="ui calendar" id="PlanDoVreme">
+											    <div class="ui input left icon">
+											      <i class="time icon"></i>
+											      <input type="text" placeholder="Vreme" value="<%= taskRecord.PlanDoVreme %>" disabled>
+											    </div>
+											  </div>
+											</div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+								    		<label>Plan vreme</label>
+											  <div class="ui calendar" id="PlanVreme">
+											    <div class="ui input left icon">
+											      <i class="time icon"></i>
+											      <input type="text" placeholder="Sati" value="<%= taskRecord.PlanVreme %>" disabled>
+											    </div>
+											  </div>
+										  </div>
+								    </div>
+							    </div>
+							  </div>
+						  </div>
+						</div>
+						<!-- end -->
+						<!-- block of changeable fields -->
+						<div class="sixteen wide mobile eight wide tablet eight wide computer column">
+							<div class="field">
+					      <label>Status</label>
+						    <select class="ui fluid dropdown" id="taskStatus" name="task[Naziv_Stavke]">
+						    	<% for (status of taskStatuses) { %>
+						    		<% if (status.Pk_Id === taskRecord.Fk_St_420) { %>
+						    			<option value="<%= status.Pk_Id %>" selected><%= status.Naziv_Stavke %></option>
+						    		<% } else { %>
+						    			<option value="<%= status.Pk_Id %>"><%= status.Naziv_Stavke %></option>
+						    		<% } %>
+						    	<% } %>
+						    </select>
+					    </div>
+					  </div>
+						<div class="sixteen wide stretched column">
+	      			<div class="two fields">
+		      			<div class="field">
+							    <label>Komentar radnika</label>
+							    <textarea rows="8" name="task[KomentarRadnika]"><%= taskRecord.KomentarRadnika %></textarea>
+							  </div>
+							  <div class="field">
+							    <div class="ui grid">
+							    	<div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Realizovan od:</label>
+											  <div class="ui calendar" id="workedFromDate">
+											    <div class="ui input left icon">
+											      <i class="calendar icon"></i>
+											      <input type="text" placeholder="Datum" name="task[RealizovanOd]" value="<%= taskRecord.RealizovanOd %>">
+											      <a class="right attached ui red icon button nowBtn" name="workedFromNow"><i class="checkmark box icon"></i></a>
+										    	</div>
+										  	</div>
+									  	</div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Realizovan od vreme:</label>
+											  <div class="ui calendar" id="workedFromTime">
+											    <div class="ui input left icon">
+											      <i class="time icon"></i>
+											      <input type="text" placeholder="Vreme" name="task[RealizovanOdVreme]" value="<%= taskRecord.RealizovanOdVreme %>">
+											    </div>
+											  </div>
+										  </div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Realizovan do:</label>
+											  <div class="ui calendar" id="workedUntilDate">
+											    <div class="ui input left icon">
+											      <i class="calendar icon"></i>
+											      <input type="text" placeholder="Datum" name="task[RealizovanDo]" value="<%= taskRecord.RealizovanDo %>">
+											      <a class="right attached ui red icon button nowBtn" name="workedUntilNow"><i class="checkmark box icon"></i></a>
+											    </div>
+											  </div>
+										  </div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Realizovan do vreme:</label>
+											  <div class="ui calendar" id="workedUntilTime">
+											    <div class="ui input left icon">
+											      <i class="time icon"></i>
+											      <input type="text" placeholder="Vreme" name="task[RealizovanDoVreme]" value="<%= taskRecord.RealizovanDoVreme %>">
+											    </div>
+											  </div>
+										  </div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Realizacija dani</label>
+											  <div class="ui calendar" id="daysOfWork">
+											    <div class="ui input left icon">
+											      <i class="time icon"></i>
+											      <input type="number" placeholder="Dana" name="task[RealizacijaDani]" value="<%= taskRecord.RealizacijaDani %>">
+											    </div>
+											  </div>
+										  </div>
+								    </div>
+								    <div class="sixteen wide mobile eight wide tablet eight wide computer column">
+								    	<div class="field">
+									    	<label>Realizacija vreme</label>
+											  <div class="ui calendar" id="hoursOfWork">
+											    <div class="ui input left icon">
+											      <i class="time icon"></i>
+											      <input type="number" placeholder="Sati" name="task[RealizacijaVreme]" value="<%= taskRecord.RealizacijaVreme %>">
+											    </div>
+											  </div>
+											</div>
+								    </div>
+							    </div>
+							  </div>
+						  </div>
+						</div>
+					  <!-- end -->
+				  </div>
 			  </div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Plan do vreme:</h3>
-			  <div class="ui calendar" id="PlanDoVreme">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="Time" value="<%= taskRecord.PlanDoVreme %>" disabled>
-			    </div>
-			  </div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Plan vreme</h3>
-			  <div class="ui calendar" id="PlanVreme">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="Time" value="<%= taskRecord.PlanVreme %>" disabled>
-			    </div>
-			  </div>
-	    </div>
-	  </div>
-
-	  <div class="ui grid">
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Realizovan od:</h3>
-			  <div class="ui calendar" id="RealizovanOd">
-			    <div class="ui input left icon">
-			      <i class="calendar icon"></i>
-			      <input type="text" placeholder="Date" value="<%= taskRecord.RealizovanOd %>">
-		    	</div>
-		  	</div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Realizovan od vreme:</h3>
-			  <div class="ui calendar" id="RealizovanOdVreme">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="<%= taskRecord.RealizovanOdVreme %>">
-			    </div>
-			  </div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Realizovan do:</h3>
-			  <div class="ui calendar" id="RealizovanDo">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="Time" value="<%= taskRecord.RealizovanDo %>">
-			    </div>
-			  </div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Realizovan do vreme:</h3>
-			  <div class="ui calendar" id="RealizovanDoVreme">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="Time" value="<%= taskRecord.RealizovanDoVreme %>">
-			    </div>
-			  </div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Realizacija dani</h3>
-			  <div class="ui calendar" id="RealizacijaDani">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="Time" value="<%= taskRecord.RealizacijaDani %>">
-			    </div>
-			  </div>
-	    </div>
-	    <div class="eight wide mobile six wide tablet four wide computer column">
-	    	<h3>Realizacija vreme</h3>
-			  <div class="ui calendar" id="RealizacijaVreme">
-			    <div class="ui input left icon">
-			      <i class="time icon"></i>
-			      <input type="text" placeholder="Time" value="<%= taskRecord.RealizacijaVreme %>">
-			    </div>
-			  </div>
-	    </div>
-	    <!-- <div class="four wide two wide large screen one wide widescreen column"></div> -->
-	  </div>
+			</div>
+			<br/>
+			<div>
+		  	<input type="submit" class="ui right floated inverted green button" value="Sačuvaj" />
+		  	<button id="cancelUpdate" class="ui right floated inverted red button">Otkaži</button>
+		  </div>
+		  <input type="hidden" value="<%= taskRecord.Pk_Id %>" name="task[Pk_Id]" />
+		  <input type="hidden" value="<%= taskRecord.Fk_Partner %>" name="task[Fk_Partner]" />
+		  <input type="hidden" value="<%= taskRecord.Fk_St_420 %>" name="task[Fk_St_420]" />
+		  <input type="hidden" value="<%= taskRecord.fk_radnik %>" name="task[fk_radnik]" />
+		  <input type="hidden" name="task[RealizovanOdISO]" id="RealizovanOdISO" />
+		  <input type="hidden" name="task[RealizovanDoISO]" id="RealizovanDoISO" />
+		</form>
 	</div>
-
   <script type="text/javascript">
   	$(document).ready(() => {
   		$('#PlanOd, #PlanDo').calendar({
 			  type: 'date',
-			  today: true
+			  text: {
+		      days: ['N', 'P', 'U', 'S', 'Č', 'P', 'S'],
+		      months: ['Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun', 'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'],
+		      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Avg', 'Sep', 'Okt', 'Nov', 'Dec'],
+		      today: 'Danas',
+		      now: 'Sada',
+		      am: 'AM',
+		      pm: 'PM'
+		    }
 			});
-			$('#PlanOdVreme, #PlanDoVreme').calendar({
+
+			$('#workedFromDate, #workedUntilDate').calendar({
+			  type: 'date',
+			  text: {
+		      days: ['N', 'P', 'U', 'S', 'Č', 'P', 'S'],
+		      months: ['Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun', 'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'],
+		      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Avg', 'Sep', 'Okt', 'Nov', 'Dec'],
+		      today: 'Danas',
+		      now: 'Sada',
+		      am: 'AM',
+		      pm: 'PM'
+		    },
+		    onChange: function (date, text, mode) {
+    			if($(this).attr('id') === 'workedUntilDate') {
+    				if (date != undefined) {
+	    				// set the status of the task to finished (Zavrseno === 2248)
+	    				$('#taskStatus').val('2248');
+    				} else {
+    					$('#taskStatus').val('<%= taskRecord.Fk_St_420 %>');
+    				}
+    			};
+    		}
+			});
+
+			$('#workedFromTime, #workedUntilTime').calendar({
 			  type: 'time',
-			  today: true
+		    ampm: false
 			});
+
+			document.getElementById('theForm').addEventListener('submit', () => {
+	  		let workedFrom = $("#workedFromDate").calendar('get date');
+	  		let workedTo   = $("#workedUntilDate").calendar('get date');
+
+	  		if(workedFrom != null) {
+	  			$("#RealizovanOdISO").val(workedFrom.toISOString());
+	  		}
+	  		if(workedTo != null) {
+	  			$("#RealizovanDoISO").val(workedTo.toISOString());
+	  		}
+	  	});
+
+	  	Array.prototype.slice.call(document.getElementsByClassName('nowBtn')).forEach((el) => {
+	  		el.addEventListener('click', (e) => {
+	  			let date = new Date();
+	  			let targetName = e.target.parentElement.name || e.target.name;
+	  			if(targetName === 'workedFromNow') {
+	  				$("#workedFromDate, #workedFromTime").calendar('set date', date);
+	  			} else {
+	  				$("#workedUntilDate, #workedUntilTime").calendar('set date', date);
+	  			}
+	  		});
+	  	});
+  	});
+
+  	document.getElementById('cancelUpdate').addEventListener('click', (e) => {
+  		e.preventDefault();
+  		window.history.go(-1);
+  		return false;
   	});
   </script>
 <%- include('partials/footer') %>

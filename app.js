@@ -57,10 +57,11 @@ function handleLogin(req, res) {
 			let companyCode = result.recordsets[0][0].Sifra;
 			let lang_id			= result.recordsets[1][0].FK_Jezik;
 			let fk_appUser	= result.recordsets[2][0].fk_korisnikApl;
-			req.session.companyCode = companyCode;
-			req.session.fk_appUser	= fk_appUser;
-			req.session.lang_id			= lang_id;
-			req.session.currentUser	= result.recordsets[2][0].ime + " " + result.recordsets[2][0].prezime;
+			req.session.companyCode  = companyCode;
+			req.session.fk_appUser	 = fk_appUser;
+			req.session.lang_id			 = lang_id;
+			req.session.currentUser	 = result.recordsets[2][0].ime + " " + result.recordsets[2][0].prezime;
+			req.session.taskStatuses = result.recordsets[3];
 			if (req.body.remember_me) {
 				let cookieOptions = {
 					path: '/',
@@ -115,13 +116,54 @@ router.get('/taskOverview', isLoggedIn, function(req, res) {
 		});
 });
 
-// show form to create new task
+// load form to create new task \ new task page
 router.get('/tasks/new', isLoggedIn, function(req, res) {
-	res.render('newTask');
+	let session = req.session;
+	res.render('newTask', {taskStatuses: req.session.taskStatuses});
+});
+
+// search parters api
+router.get("/tasks/searchpartners/:searchstr", isLoggedIn, function(req, res) {
+	let session = req.session;
+	hubieApi.loadPartners(session.companyCode, session.lang_id, req.params.searchstr )
+		.then(result => {
+			var resp = {};
+			//resp["success"] = true;
+			resp["results"] = result.recordset;
+			res.json(resp);
+		})
+		.catch(err => {
+			console.log(err);
+			//var resp = {};
+			//resp["success"] = false;
+			//resp["err"] = err;
+			//res.json(resp);
+		});
 });
 
 // create task
 router.post('/tasks', isLoggedIn, function(req, res) {
+  	// console.log(req.body); // your JSON
+  	// res.send(req.body);    // echo the result back
+
+
+	let session = req.session;
+  	console.log(req.body);
+  	console.log("req.body.Pk_id : ", req.body.Pk_id);
+  	console.log("fk_appUser : ", session.fk_appUser);
+  	var newTask = req.body;
+	hubieApi.createTask(session.companyCode, session.lang_id, session.fk_appUser, newTask)
+		.then(result => {
+			//var resp = {};
+			//resp["success"] = true;
+			//resp["results"] = result.recordset;
+			//res.json(resp);
+			console.log(result);
+			res.json(result);
+		})
+		.catch(err => {
+			console.log(err);
+		});
 });
 
 // show specific task
@@ -133,7 +175,8 @@ router.get("/tasks/:id/edit", isLoggedIn, function(req, res) {
 	let session = req.session;
 	hubieApi.getTask(session.companyCode, session.lang_id, req.params.id)
 		.then(result => {
-			res.render('editTask', {taskRecord: result.recordset[0]});
+			result.recordset[0].Datum = moment(result.recordset[0].Datum).format('D. MMMM YYYY');
+			res.render('editTask', {taskRecord: result.recordset[0], taskStatuses: req.session.taskStatuses});
 		})
 		.catch(err => {
 			console.log(err);
@@ -142,6 +185,17 @@ router.get("/tasks/:id/edit", isLoggedIn, function(req, res) {
 
 // update the task
 router.put("/tasks/:id", isLoggedIn, function(req, res) {
+	let task = req.body.task;
+	hubieApi.updateTask(req.session.companyCode, req.session.fk_appUser, req.session.lang_id, task)
+		.then(result => {
+			req.flash("success", "Uspešno ste izmenili task.");
+			res.redirect('/taskOverview');
+		})
+		.catch(err => {
+			// req.flash("error", err.message);
+			// res.redirect('back');
+			console.log(err);
+		});
 });
 
 // logout

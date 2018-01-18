@@ -1,5 +1,486 @@
 <%- include('partials/header') %>
-	<div class="ui text container">
-		<p>newTask form</p>
+
+	<div class="ui hidden divider"></div>
+
+	<!-- <div class="ui form container  js_mobileLayout"> -->
+	<div class="ui form container" data-mobilelayout="true">
+	    
+		<div class="ep_novitask grupa  active">
+	<!-- 
+			<div class="grouped fields  ep_novitask partneri">
+			    <label>Partner</label>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="example2" checked="checked">
+			        <label>Matijević</label>
+			      </div>
+			    </div>
+			    <div class="field">
+			      <div class="ui radio checkbox">
+			        <input type="radio" name="example2">
+			        <label>Lasta</label></input>
+			      </div>
+			    </div>
+			</div> -->
+
+	    	<div class="ui grid">
+  				<div class="doubling two column row">
+
+					<div class="field  seven wide column  ep_novitask 1_partneri">
+
+						<h3 class="ui horizontal divider header">
+						  <i class="tag icon"></i>
+						  Partner
+						</h3>
+
+						<div class="ui segment">
+
+							<!-- <div class="ui red ribbon label">
+								<label>Partner</label>
+							</div> -->
+
+					        <!-- <div class="ui vertical segment"> -->
+					        <div class="ui">
+						        <div class="ui fluid category search">
+							        <div class="ui left icon input">
+							            <input id="idPartner" data-partner-Pk_id="0" class="prompt" type="category" placeholder="Pretraga partnera, 3+ karaktera" autocomplete="off">
+							            <i class="search icon"></i>
+							        </div>
+		  							<div class="results"></div>
+						        </div>
+						    </div>
+
+							<div class="ui bottom right attached label" data-brzalistapartnera-visibility-toggler>
+				   				<label>Brza lista</label>
+				   			</div>
+					        <div class="ui vertical segment transition hidden 1_2_brzaListaPartnera">
+								<select id="idPartneriBrzaLista" class="" size="5" >
+								  <!-- <option class="item" data-partner-Pk_id="0">Idea</option> -->
+								</select>
+							</div>
+
+						</div>
+					</div><!-- field 1_partneri -->
+
+					<div class="field  nine wide column  ep_novitask 2_opis">
+
+						<h3 class="ui horizontal divider header">
+						  <i class="tag icon"></i>
+						  Opis
+						</h3>
+
+						<div class="ui segment">
+
+							<!-- <div class="ui red ribbon label">
+								<label>Opis</label>
+							</div> -->
+
+					        <div class="ui vertical segment">
+							    <div class="doubling two column row">
+							    	<div class="column">
+									    <select class="ui fluid dropdown" id="taskOpis" name="task[opis]">
+										  <option class="item">Zaglavljen racun</option>
+										  <option class="item">Zaglavljen fisk. p.</option>
+										  <option class="item">Restart servisa</option>
+										  <option class="item">Restart kase</option>
+										  <option class="item">Restart servera</option>
+										  <option class="item">Touch screen problem</option>
+										</select>
+							    	</div>
+							    </div>
+							</div>
+
+					        <div class="ui vertical segment">
+							    <div class="doubling two column row">
+							    	<div class="column">
+							    		<textarea clas="doubling two column row" rows="6" required></textarea>
+							    	</div>
+							    </div>
+							</div>
+
+						</div>
+					</div><!-- field 2_opis -->
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="ep_novitask grupa">
+	    	<!-- <div class="ui equal width grid"> -->
+    		<div class="ui grid">
+		    	<div class="doubling stackable four column row">
+
+					<div class="field  column  ep_novitask 3_vreme_rada">
+
+						<h3 class="ui horizontal divider header"><i class="tag icon"></i>Vreme rada</h3>
+
+						<!-- <div class="ui red ribbon label">
+							<label>Vreme rada</label>
+						</div> -->
+
+						<div class="ui segment">
+							<select id="xxx" class="" >
+							  <!-- <option class="item"></option> -->
+							</select>
+						</div>
+
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="field  column  ep_novitask 4_tim">
+
+						<h3 class="ui horizontal divider header"><i class="tag icon"></i>Tim</h3>
+
+						<!-- <div class="ui red ribbon label">
+							<label>Tim</label>
+						</div> -->
+
+						<div class="ui segment">
+							<select id="xxx" class="" >
+							  <!-- <option class="item"></option> -->
+							</select>
+						</div>
+
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="field  column  ep_novitask 5_status">
+
+						<h3 class="ui horizontal divider header"><i class="tag icon"></i>Status<i class="_required"></i><!-- <i class="small red asterisk icon"></i> --></h3>
+
+						<!-- <div class="ui red ribbon label">
+							<label>Status</label>
+						</div> -->
+
+						<div class="ui segment">
+						    <select class="ui fluid dropdown" id="taskStatus" name="task[Naziv_Stavke]">
+						    	<% for (status of taskStatuses) { %>
+						    		<% if (status.Pk_Id === 2241) { %> <!-- nije dodeljen -->
+						    			<option value="<%= status.Pk_Id %>" selected><%= status.Naziv_Stavke %></option>
+						    		<% } else { %>
+						    			<option value="<%= status.Pk_Id %>"><%= status.Naziv_Stavke %></option>
+						    		<% } %>
+						    	<% } %>
+						    </select>
+						</div>
+
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="field  column  ep_novitask 6_moduli">
+
+						<h3 class="ui horizontal divider header"><i class="tag icon"></i>Moduli</h3>
+
+						<!-- <div class="ui red ribbon label">
+							<label>Moduli</label>
+						</div> -->
+
+						<div class="ui segment">
+							<select id="xxx" class="" >
+							  <!-- <option class="item"></option> -->
+							</select>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="ep_novitask grupa">
+	    	<!-- <div class="ui equal width grid"> -->
+    		<div class="ui grid">
+		    	<div class="doubling stackable three column row">
+
+					<div class="field  column  ep_novitask pocetak">
+
+						<h3 class="ui horizontal divider header"><i class="tag icon"></i>Početak</h3>
+
+						<!-- div class="ui red ribbon label">
+					    	<label>Opis</label>
+					    </div> -->
+
+						<div class="ui segment">
+							<select id="xxx" class="" >
+							  <!-- <option class="item"></option> -->
+							</select>
+						</div>
+
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="field  column  ep_novitask kraj">
+
+						<h3 class="ui horizontal divider header"><i class="tag icon"></i>Kraj</h3>
+
+						<!-- <div class="ui red ribbon label">
+					    	<label>Opis</label>
+					    </div> -->
+
+						<div class="ui segment">
+							<select id="xxx" class="" >
+							  <!-- <option class="item"></option> -->
+							</select>
+						</div>
+
+					</div>
+
+					<div class="ui hidden divider"></div>
+
+					<div class="field  column  ep_novitask trajanje">
+
+						<h3 class="ui horizontal divider header"><i class="tag icon"></i>Trajanje</h3>
+
+						<!-- <div class="ui red ribbon label">
+					    	<label>Opis</label>
+					    </div> -->
+
+						<div class="ui segment">
+							<select id="xxx" class="" >
+							  <!-- <option class="item"></option> -->
+							</select>
+						</div>
+
+					</div>
+
+				</div><!-- doubling stackable three column row -->
+			</div>
+		</div>
+
 	</div>
+
+
+    <!-- Mbile navigation -->
+    <div class="ui borderless fixed bottom sticky  menu">
+		<div class="ui grid  container  ep_mobileNav">
+		    <!-- <div class="tablet mobile only row"> -->
+		   	<div class="mobile only row">
+		   		<div class="ui fluid buttons">
+			  		<button id="epPrevBtn" class="ui button"><i class="backward icon"></i></button>
+			  		<!-- <div class="or"></div> -->
+					<a href="#"><div class="or"></div></a>
+				  	<button id="epNextBtn" class="ui positive button"><i class="forward icon"></i></button>
+				</div>
+		  	</div><!--tablet only row-->
+		</div><!-- grid-->
+	</div>
+
+<!-- 
+	<div class="ui grid">
+	   <div class="tablet mobile only row">
+	    	<div class="column">
+		      	<div class="">
+		        	<a id='ep_mobileLayoutToggle' data-state="false" class="item"><i class=" circular rotated link unhide icon"></i></a>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div> -->
+
+	<style>
+	</style>
+
+	<script>
+
+		var newTask = {
+			Pk_id : 0,		// Pk_id partnera
+			opis : ""
+		}
+
+		var odabraniPartner = {
+			Pk_id : 0,
+       		Naziv: '',
+       		Ulica_i_Broj: '',
+       		Naziv_Mesto: ''
+		};
+
+		function setup() {
+      		/* BEGIN mobile segment nav */
+		    // var ep_mobileLayoutToggleEl = document.getElementById("ep_mobileLayoutToggle");
+		    //var ep_mobileLayoutToggleEl = document.querySelector('#ep_mobileLayoutToggle[state=true]');
+		    //var ep_mobileLayoutToggleEl = document.querySelector('#ep_mobileLayoutToggle');
+		    
+      		// ep_mobileLayoutToggleEl.addEventListener('click', function() {
+      			// var isMobileLayout = this.getAttribute('data-state') === "true";
+
+  				// document.body.classList.toggle('js_mobileLayout');
+  				
+    			// var ep_novitaskEls = document.getElementsByClassName("ep_novitask");
+				// Array.prototype.forEach.call(ep_novitaskEls, function(el, i){
+				// 	el.classList.toggle("js_mobileLayout");
+				// });
+
+  				// this.setAttribute('data-state', !isMobileLayout);
+      		// });
+
+      		var ep_mobileLayoutPrevBtnEl = document.getElementById('epPrevBtn');
+      		var ep_mobileLayoutNextBtnEl = document.getElementById('epNextBtn');
+		    
+		    var activeTaksGroupEl = document.querySelector('.ep_novitask.grupa.active');
+
+      		ep_mobileLayoutPrevBtnEl.addEventListener('click', function() {
+
+  				var prevTaskGroupEl = activeTaksGroupEl.previousElementSibling;
+      			//var IsFirstSegment = false;
+      			if (prevTaskGroupEl) { // test if 1st segment
+      				activeTaksGroupEl.classList.toggle('active');
+      				prevTaskGroupEl.classList.toggle('active');
+      				activeTaksGroupEl = prevTaskGroupEl;
+      			} else {
+      				alert('prvi el ... nema nazad ?');
+      			}
+      		});
+
+      		ep_mobileLayoutNextBtnEl.addEventListener('click', function() {
+
+  				var nextTaksGroupEl = activeTaksGroupEl.nextElementSibling;
+      			//var isLastSegment = false; //TODO
+      			if (nextTaksGroupEl) { // test if last segment
+      				activeTaksGroupEl.classList.toggle('active');
+      				nextTaksGroupEl.classList.toggle('active');
+      				activeTaksGroupEl = nextTaksGroupEl;
+      			} else {
+      				alert('poslednji ... save ?');
+      			}
+  				// document.body.classList.toggle('js_mobileLayout');
+      		});
+      		/* END mobile segment nav */
+
+      		/* BEGIN partneri: search ui */
+      		$('.ui.dropdown')
+			  .dropdown()
+			;
+
+			$('.ui.search')
+				.search({
+				    //type          : 'category',
+				    minCharacters : 3,
+				    cache: true,
+    				encodeParameters: false,
+				    apiSettings : {
+				      	url : '/tasks/searchpartners/{query}',
+					    beforeSend : function(settings) {
+					    	//console.log(settings.urlData.query);
+					        //settings.urlData.query = encodeURIComponent(settings.urlData.query);
+					        settings.urlData.query = settings.urlData.query.substring(0,28);
+      						return settings;
+					    },
+				    },
+				    /* remapiram polja */
+				    fields: {
+				      results : 'results',
+				      title   : 'Naziv',
+				      description : 'Naziv_Mesto',
+				      price   : 'Pk_id',
+				    },
+				    onSelect: odabraniPartnerCallback
+				});
+      		/* END partneri: search ui */
+		}
+
+		window.onload = setup;
+
+
+
+		/* HELPER Functions */
+
+		/* BEGIN partneri: Brza lista init */
+		function initBrzaListaPartnera() {
+			var brzaListaPartneriArr = JSON.parse( localStorage.getItem('partneri') );
+
+			if (brzaListaPartneriArr) {
+				// popuni listu brzih partnera - LocalStorage
+	      		var brzaListaPartneriSelectEl = document.getElementById('idPartneriBrzaLista'); // select#idPartneriBrzaLista
+
+			    brzaListaPartneriSelectEl.options.length = 0; /* empty */
+				brzaListaPartneriArr.forEach(function(brzaListaPartner) {
+		      		brzaListaPartneriSelectEl.options[brzaListaPartneriSelectEl.options.length] = new Option(brzaListaPartner.Naziv, brzaListaPartner.Pk_id);
+				});
+
+	      		$('select#idPartneriBrzaLista').click(function() {
+	      			$('input#idPartner').val( this.value ); // UI
+					newTask["Pk_id"] = this.value; // odabrani partner
+	      		});
+	  		}
+
+			/* otvaranje brze liste partnera */
+      		//$('.js_BrzaListaPartneraToggle').click(function() {
+      		$('[data-brzalistapartnera-visibility-toggler]').click(function() {
+      		 	$('.ui.segment.1_2_brzaListaPartnera').transition('swing left');
+      		});
+	  	};
+
+	  	initBrzaListaPartnera();
+  		/* END partneri: Brza lista */
+
+  		/* BEGIN partneri: search - Odabrani Partner Callback f */
+		function odabraniPartnerCallback(result, response) {
+		    //$("input.prompt").val(result.title);
+		    
+			odabraniPartner = result; // temp, obrisi
+
+			newTask["Pk_id"] = result.Pk_id;
+			$('#idPartner').attr('data-partner-Pk_id', result.Pk_id); // za brisanje ?
+
+			/* dodavanje u listu brzih partera*/
+
+			// var brzaListaPartneriArr = JSON.parse( localStorage.getItem('partneri') );
+			// if (!brzaListaPartneriArr)
+			// 	brzaListaPartneriArr = [];
+			var brzaListaPartneriArr = (localStorage.getItem('partneri')) ? JSON.parse( localStorage.getItem('partneri') ) : [];
+
+			var existsAtPosition = brzaListaPartneriArr.findIndex(o => o.Pk_id === odabraniPartner.Pk_id);
+			if (existsAtPosition != -1)
+				brzaListaPartneriArr.splice(existsAtPosition, 1);
+			brzaListaPartneriArr.unshift(odabraniPartner);
+			localStorage.setItem('partneri', JSON.stringify(brzaListaPartneriArr));
+
+				/* redraw */
+			initBrzaListaPartnera();
+		}
+  		/* END partneri: search - Odabrani Partner Callback f */
+
+
+		// Define API endpoints once globally
+		/*$.fn.api.settings.api = {
+		 	'search' : '/tasks/searchpartners/?query={value}'
+		};*/
+		// $('.search input')
+		//   .api({
+		// 	debug: true,
+		//     action: 'search',
+		// 	url: '/tasks/searchpartners/{value}',
+		// 	searchFullText: false,
+		//     stateContext: '.ui.input',
+		//     beforeSend: function(settings) {
+		//       // form data is editable in before send
+		//       // if(settings.data.username == '') {
+		//       //   settings.data.username = 'New User';
+		//       // }
+		//       // open console to inspect object
+		//       // /console.log(settings.data);
+		//       console.log("settings");
+		//       console.log(settings);
+		//       return settings;
+		//       return;
+		//     },
+		//     // response: {
+		//     //   success: true
+		//     // },
+		//     onSuccess: function(response) {
+		//       // valid response and response.success = true
+		//       console.log(response);
+		//     },
+		//     onError: function(errorMessage) {
+		//       // invalid response
+		//       console.log(errorMessage);
+		//     },
+		//   });
+
+	</script>
 <%- include('partials/footer') %>

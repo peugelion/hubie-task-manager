@@ -19,18 +19,18 @@
 	<body>
 		<div class="ui borderless inverted menu">
 			<div class="ui container">
-		        <a class="item" href="http://www.europos.co.rs">
-		      	    <img class="logo" src="/assets/images/europos.png">
-		        </a>
-			    <a class="browse item ep_title" href="/taskOverview">
-			        Hubie Task Manager
-			    </a>
+        <a class="item" href="http://www.europos.co.rs" title="Europos sajt">
+      	    <img class="logo" src="/assets/images/europos.png">
+        </a>
+		    <a class="browse item ep_title" href="/taskOverview">
+		        Hubie Task Manager
+		    </a>
 				<div class="ui right item">
 			  	<% if(!currentUser) { %>
 						<a class="ui inverted green button" href="/login">Log in</a>
 					<% } else { %>
-						<a class="item ep_currentuser" href="#"><%= currentUser %></a>
-				    	<a class="ui inverted red button" href="/logout">Log out</a>
+						<a class="item ep_currentuser"><%= currentUser %></a>
+				    <a class="ui inverted red button" href="/logout">Log out</a>
 					<% } %>
 				</div>
 			</div>
